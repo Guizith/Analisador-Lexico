@@ -2,15 +2,17 @@
 #include <stdio.h>
 #include <string>
 
+//Variaveis globais
 char stc [255];
 int p =0;
 int tempn;
 char temps[255];
-int crn=0;
 int crs =0;
 int crv =0;
 char v[100][255];
 
+
+//funcoes
 void e0();
 void e1();
 void e2();
@@ -23,48 +25,47 @@ void sig4();
 void sig5();
 void sig6();
 
+
 int main(int argc, char** argv) {
 
 	printf("\n Digite a setenca:");
 	scanf("%[^\n]", stc);
 	fflush(stdin);
 	
-	
+	//  Printa sentenca de entrada para confirmacao
+	printf("Sentenca de entrada: ");
 	for(int i = 0; i<25;i++){
 		printf("%c", stc[i]);
 }
-	
+	printf("\n");
 	e0();
-		
-		
-		for(int i=0;i<3;i++){
-			printf("\n i= %d  var = %s",i,*v[i]);
-		}
+	
 	return 0;
 }
 
-//2a ab2 2ab 26 a b
-//Estados: 0,2,0,1,1,0,2,0,1,0,2,2,0,1,0,1,0
-
+//============================================>>> Estados <<<============================================
 void e0(){
-	
+	//if para letras
 	if((stc[p] >= 65 && stc[p]<=90) ||(stc[p] >= 97 && stc[p]<=122) ){
-	
-		//printf("\n e0 achei letra: %c",stc[p]);
 		sig1();
 		p++;
 		e1();
-	}else if(stc[p] >= 48 && stc[p]<=57){
-		//printf("\n e0 achei num: %c",stc[p]);
+	}
+	//else if para numeros
+	else if(stc[p] >= 48 && stc[p]<=57){
 		sig4();
 		p++;
 		e2();
-	}else if(stc[p]== ' '){
-	//	printf("\n e0 achei espaco: %c",stc[p]);
+	}
+	//Else if para espacos
+	else if(stc[p]== ' '){
 		p++;
 		e0();
-	}else{
-		for(int i=0;i<4;i++){
+	}
+	//Else estado final e print tabela var
+	else{
+		printf("\n\n =======> Tabela de Variaveis <======= ");
+		for(int i=0;i<crv;i++){
 			printf("\n i= %d  var = %s",i,v[i]);
 		}
 		exit(0);
@@ -73,20 +74,20 @@ void e0(){
 
 
 void e1(){
-	
-if((stc[p] >= 65 && stc[p]<=90) ||(stc[p] >= 97 && stc[p]<=122) ){
-	
-	//	printf("\n e1 achei letra: %c",stc[p]);
+	//If para letras
+	if((stc[p] >= 65 && stc[p]<=90) ||(stc[p] >= 97 && stc[p]<=122) ){
 		sig2();
 		p++;
 		e1();
-	}else if(stc[p] >= 48 && stc[p]<=57){
-	//	printf("\n e1 achei num: %c",stc[p]);
+	}
+	//else if para numeros
+	else if(stc[p] >= 48 && stc[p]<=57){
 		sig2();
 		p++;
 		e1();
-	}else{
-	//	printf("\n else e1 letra: %c",stc[p]);
+	}
+	//else para espaco
+	else{
 		sig3();
 		e0();
 	}
@@ -94,88 +95,125 @@ if((stc[p] >= 65 && stc[p]<=90) ||(stc[p] >= 97 && stc[p]<=122) ){
 }
 
 void e2(){	
+	//If para numeros
 	if(stc[p] >= 48 && stc[p]<=57){
-	//	printf("\n e2 achei num: %c",stc[p]);
 		sig5();
 		p++;
 		e2();
-	}else{
-		//printf("\n valor de p: %d",p);
-	//	printf("\n else e2 letra: %c",stc[p]);	
+	}
+	//Else para espaco ou letras
+	else{	
 		sig6();
 		e0();
 	}
 }
 
-//==========================================================================Sigmas
+//============================================>>> Sigmas <<<============================================
 
 void sig1(){
-//	printf("\nEntrei sigma 1 letra: %c",stc[p]);
+	//for para zerar temps
 	for(int i =0; i<crs;i++){
 		temps[i]='\0';
 	}
+	//atribuicao de tmps e variavel de controle(crs)
 	temps[0] = stc[p];
-	//printf ("     ---atribui %c em temps e ficou: %c",stc[p],temps[0]);
 	crs=1;
 }
 
 void sig2(){
-//	printf("\nEntrei sigma 2 letra: %c",stc[p]);
+	//Anexa no espaco vazio e incrementa variavel de controle
 	temps[crs] = stc[p];
-	/*
-	printf("  ---valor de tem 0 = %c", temps[0]);
-	printf("  ---valor de tem 1 = %c", temps[1]);
-	printf("  ---valor de tem 2 = %c", temps[2]);
-	printf("  ---valor de crs = %d", crs);
-	printf ("     ---anexei %c em temps e ficou: %c",stc[p],temps[crs]);
-	*/
 	crs++;
-
 }
+
 void sig3(){
-	
-//	printf("\nEntrei sigma 3 letra: %c",stc[p]);
-	
+		
+	int valid = 0;
 	int jfd = 0;
 	temps[crs] = '\0';
+//	printf("\n ------ Entrei sigma 3  ----  temps: %s  , valor de crs: %d , valor de crv: %d",temps, crs, crv);
 	
-	for ( int i =0; i< crv;i++){
-		if(temps == v[i]){
-		//	printf("  ---validei o if de sig 3", temps[0]);	
-			printf("\n V(%c)", v[i]);
-			jfd = 1;
-		}	
+	int j;
+	for ( int i =0; i<= crv;i++){
+		//printf(" \n ---jft== %d, valor de crs %d", jfd, crs);
+		if( crs == jfd){
+		valid = i-1;
+		i=600;
+		}else{
+			jfd =0;
+		}
+		
+		for(j =0;j<crs ;j++){
+			if(temps[j] == v[i][j]){
+			//	printf("  ---validei o if de sig 3");	
+				jfd = 1;
+			}
+
+		}
 	}
+
 	if( jfd == 0){
 	//	printf("  ---validei o else de sig 3, valor de temps = %s   ---- valor de crv = %d", temps,crv);
 			for(int j = 0; j<255;j++){
 				v[crv][j]=temps[j];
 			}
-		
+	
 	//	printf("  ---validei a igualdade sig 3, valor de v em crv = %c", v[crv]);
 		printf("\n V(%s)", v[crv]);
 		crv++;
+	}else{
+		printf("\n V(%s)", v[valid]);
 	}
+	
+	
+	
+/*
+	int jfd = 0; //flag
+	//Finaliza temps;
+	temps[crs] = '\0';
+	printf("seg3///");
+	//pode ser que nao esteja validando if nunca!!!!
+	//For para varrer a tabela de variavel
+	int posv=0;
+	int i,j ;
+	for (i=0; i<crv;i++){
+		for(j=0;j<255;j++){
+			if(temps[j] == v[i][j] && temps[j] != ' ' &&  v[i][j] != '\0'){
+				jfd =+ 1;
+			}
+		}
+	}
+	printf("\n valor de crs %d, valor de jfd %d", crs, jfd); 
+	if( jfd == 0 || ftt == 0){
+		//copia temps na tabela
+		ftt++;
+		for(int j = 0; j<255;j++){
+			v[crv][j]=temps[j];
+			
+		}
+		printf("\n entrei no for de copia");
+		printf("\n V(%s)", v[crv+1]);
+		//incrementa variavel de controle de tabela de variaveis
+		crv++;
+	}else if( jfd == crs){
+		printf("\n entrei no else if");
+		printf("\n V(%s)", v[posv]);
+	}*/
 	
 }
 
 void sig4(){	
-//	printf("\nEntrei sigma 4 letra: %c",stc[p]);
-	//printf(" ---- valor de temp antes: %d",tempn);
+	//tempn = stc[p] numerico
 	tempn = stc[p] - '0';
-//	printf(" ---- valor de temp depois: %d",tempn);
 }
 
 void sig5(){
-//	printf("\nEntrei sigma 5 letra: %c",stc[p]);
-//	printf(" ---- valor de tempn antes: %d",tempn);
+	//tempn eh a juncao dos digitos ex: tempn = 1 stc[p] = 1   tempm==11
 	tempn = (tempn*10)+(stc[p] - '0');
-	//printf(" ---- valor de temp n: %d",tempn);
-	//printf(" paseeei");
 }
 
 void sig6(){
-//	printf("\nEntrei sigma 6 letra: %c",stc[p]);
+	//print variavel de tempn
 	printf("\n N(%d)", tempn);	
 }
 
