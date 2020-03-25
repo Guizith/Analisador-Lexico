@@ -127,79 +127,37 @@ void sig2(){
 }
 
 void sig3(){
-		
-	int valid = 0;
+	//variaveis auxiliares 
+	int valid = 0;		//flag para saber qual variavel da tabela corresponde a temps
 	int jfd = 0;
 	temps[crs] = '\0';
-//	printf("\n ------ Entrei sigma 3  ----  temps: %s  , valor de crs: %d , valor de crv: %d",temps, crs, crv);
-	
+
+	//for para comparacao de char por char de toda a temps com cada string variavel da tabela 
 	int j;
 	for ( int i =0; i<= crv;i++){
-		//printf(" \n ---jft== %d, valor de crs %d", jfd, crs);
 		if( crs == jfd){
 		valid = i-1;
 		i=600;
 		}else{
 			jfd =0;
 		}
-		
 		for(j =0;j<crs ;j++){
 			if(temps[j] == v[i][j]){
-			//	printf("  ---validei o if de sig 3");	
 				jfd = 1;
 			}
 
 		}
 	}
-
+	//apartir da flag decide se apenas printa ou copia e printa
 	if( jfd == 0){
-	//	printf("  ---validei o else de sig 3, valor de temps = %s   ---- valor de crv = %d", temps,crv);
-			for(int j = 0; j<255;j++){
-				v[crv][j]=temps[j];
-			}
-	
-	//	printf("  ---validei a igualdade sig 3, valor de v em crv = %c", v[crv]);
+		for(int j = 0; j<255;j++){
+			v[crv][j]=temps[j];
+		}
 		printf("\n V(%s)", v[crv]);
 		crv++;
 	}else{
 		printf("\n V(%s)", v[valid]);
-	}
-	
-	
-	
-/*
-	int jfd = 0; //flag
-	//Finaliza temps;
-	temps[crs] = '\0';
-	printf("seg3///");
-	//pode ser que nao esteja validando if nunca!!!!
-	//For para varrer a tabela de variavel
-	int posv=0;
-	int i,j ;
-	for (i=0; i<crv;i++){
-		for(j=0;j<255;j++){
-			if(temps[j] == v[i][j] && temps[j] != ' ' &&  v[i][j] != '\0'){
-				jfd =+ 1;
-			}
-		}
-	}
-	printf("\n valor de crs %d, valor de jfd %d", crs, jfd); 
-	if( jfd == 0 || ftt == 0){
-		//copia temps na tabela
-		ftt++;
-		for(int j = 0; j<255;j++){
-			v[crv][j]=temps[j];
-			
-		}
-		printf("\n entrei no for de copia");
-		printf("\n V(%s)", v[crv+1]);
-		//incrementa variavel de controle de tabela de variaveis
-		crv++;
-	}else if( jfd == crs){
-		printf("\n entrei no else if");
-		printf("\n V(%s)", v[posv]);
-	}*/
-	
+	}	
 }
 
 void sig4(){	
