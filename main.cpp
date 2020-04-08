@@ -76,39 +76,14 @@ int main(int argc, char** argv) {
 	}
 	printf("\n");
 
-	
-	/*
-	printf("reserva: \n");
-	for(int i = 0; i<8;i++){
-		printf("%s", pr[i]);
-			printf("\n");
-	}
-
-
-	//teste sig 3 com palavra reservada
-	temps[0] = 'I';
-	temps[1] = 'T';
-	
-	v[0][0] = 'I';
-	v[0][1] = 'E';
-	v[0][2] = '\0';
-	
-	crv=1;
-	crs=2;
-	sig3();
-
-			*/
-		
 		
 	e0();
 	
 	return 0;
 }
-//IF2 2IF (A>10) THEN LET B:=20%ABC IF
 //============================================>>> Estados <<<============================================
 void e0(){
 
-	//printf("\n E0, %c", stc[p]);
 	//if para letras
 	if((stc[p] >= 65 && stc[p]<=90) ||(stc[p] >= 97 && stc[p]<=122) ){
 		sig1();
@@ -257,14 +232,13 @@ void sig3(){
 		}
 				
 		if( crs == jfp && crs != 1){
-			//printf("valei palavra reservada:");
 			validd = i;
 			i=600;
 		}else{
 			jfp =0;
 		}
 	}
-//	printf(" \n jfp: %d",jfp);
+
 	crs++;
 	if(jfp == 0 ){
 		jfd =0;
@@ -326,7 +300,6 @@ void sig8(){
 	printf("\n :=");	
 }
 void sig9(){
-//	printf("\n STC %c, %c , TEMPC %c", stc[p], stc[p-1], tempc);
 	tempc = stc[p];	
 }
 void sig10(){
